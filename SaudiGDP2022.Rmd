@@ -1,0 +1,57 @@
+---
+title: 'Economic Trends in Saudi Arabia: An Analysis of GDP from 2010 to 2022'
+author: "Hala Alotaibi"
+date: "2025-05-11"
+output:
+html_document: default
+pdf_document: default
+---
+
+# Economic Trends in Saudi Arabia: An Analysis of GDP from 2010 to 2022
+
+## Introduction
+
+This report presents an analysis of Saudi Arabia's Gross Domestic Product (GDP) trends from 2010 to 2022. It examines the overall GDP growth and fluctuations due to oil prices and diversification efforts under Vision 2030.
+
+## GDP Analysis
+```{r}
+
+install.packages("WDI", repos = "https://cloud.r-project.org")
+library(WDI)
+
+# Download data from the World Bank
+gdp_data <- WDI(country = "SA", indicator = "NY.GDP.MKTP.CD", start = 2010, end = 2022)
+
+# Show first 6 rows to check
+head(gdp_data)
+```
+Summary Statistics
+
+```{r}
+# Statistical summary of the data
+summary(gdp_data)
+```
+
+## GDP Trend Over Time
+
+```{r}
+# Convert year to date format
+gdp_data$year <- as.Date(as.character(gdp_data$year), format="%Y")
+
+
+install.packages("ggplot2", repos = "https://cloud.r-project.org")
+library(ggplot2)
+#GDP chart
+ggplot(gdp_data, aes(x = year, y = NY.GDP.MKTP.CD)) +
+  geom_line(color = "blue") +
+  labs(title = "Saudi Arabia GDP (2010-2022)",
+       x = "Year",
+       y = "GDP (Current US$)") +
+  theme_minimal()
+
+
+```
+
+## Conclusion
+
+The GDP analysis highlights the economic growth trends and how external factors such as oil prices have affected Saudi Arabia’s economy during this period. Moving forward, diversification efforts under Vision 2030 are expected to shape the Kingdom's economic future.
